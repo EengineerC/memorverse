@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import Header from '../Header.svelte';
 	import { inputText } from '../state.svelte';
+	import Switch from './Switch.svelte';
+	import UserGuide from './UserGuide.svelte';
 
 	let numberToHide = $state(0);
 	let hiddenIndices: number[] = $state([]);
@@ -14,27 +15,26 @@
 	let text = inputText.text;
 	const words = text.split(' ');
 	const numberOfWords = words.length;
-	let initialized = false
+	let initialized = false;
 
 	$effect(() => {
-		for (let i = 0; i<text.length; i++) {
-
+		for (let i = 0; i < text.length; i++) {
 			if (!/^[a-zA-Z]+$/.test(text[i])) {
-				//this is to deal with punctuation when speaking. 
+				//this is to deal with punctuation when speaking.
 				// it automatically fills forward punctuation
-				guessText = guessText.slice(0, i) + text[i] + guessText.slice(i+1)
+				guessText = guessText.slice(0, i) + text[i] + guessText.slice(i + 1);
 				//marks whatever the last non-letter ther is to the last correct index
-				lastCorrectIndex = i
+				lastCorrectIndex = i;
 			}
 			//if it doesn't match make it so everytime i talk it rewrites over the last place
 			if (guessText[i] !== text[i].toLowerCase()) {
-				break
+				break;
 			}
 		}
-	})
+	});
 
 	function initializeSpeechRecognition() {
-		initialized = true
+		initialized = true;
 		if ('webkitSpeechRecognition' in window) {
 			recognition = new webkitSpeechRecognition();
 			recognition.continuous = true;
@@ -56,7 +56,7 @@
 				isListening = false;
 			};
 		}
-	};
+	}
 
 	$effect(() => {
 		if (recognition) {
@@ -65,7 +65,9 @@
 	});
 
 	function toggleSpeechRecognition() {
-		if (!initialized) {initializeSpeechRecognition()}
+		if (!initialized) {
+			initializeSpeechRecognition();
+		}
 		if (!recognition) {
 			alert('Speech recognition is not supported in your browser.');
 			return;
@@ -99,7 +101,7 @@
 				if (guessedLetter.toLowerCase() === letter.toLowerCase()) {
 					return `<b>${letter}</b>`;
 				} else if (guessedLetter) {
-					return `<span style='color: red; '>${guessedLetter}</span>`;
+					return `<span style='color: red;'>${guessedLetter}</span>`;
 				} else if (!hiddenIndices.includes(index) || (i === 0 && showFirstLetterOnly))
 					return letter;
 				else {
@@ -108,72 +110,129 @@
 			})
 			.join('');
 	}
-
 </script>
 
-<div class="memory-page">
-	<Header />
+<div class="app-container">
+	<div class="content-wrapper">
+		<UserGuide />
+		<div class="control-panel">
+			<div class="switch-group">
+				<Switch label="Voice Recognition" onclick={() => toggleSpeechRecognition()} />
+				<Switch
+					label="Show First Letters"
+					onclick={() => (showFirstLetterOnly = !showFirstLetterOnly)}
+				/>
+			</div>
 
-	<div class="verse-container">
-		{#if show}
-			<p>{words.join(' ')}</p>
-		{:else}
-			<p>
-				{@html words.map((word, index) => getDisplayWord(word, index)).join(' ')}
-			</p>
-		{/if}
-		<div class="input-container">
-			<textarea bind:value={guessText} spellcheck="false"></textarea>
+			<div class="slider-group">
+				<label for="hide-slider" class="slider-label">
+					Hide {numberToHide} words
+				</label>
+				<input
+					type="range"
+					id="hide-slider"
+					min="0"
+					max={numberOfWords}
+					bind:value={numberToHide}
+					oninput={updateHiddenWords}
+					class="slider"
+				/>
+			</div>
 		</div>
-		<div class="slider-container">
-			<input
-				type="range"
-				id="hide-slider"
-				min="0"
-				max={numberOfWords}
-				bind:value={numberToHide}
-				oninput={updateHiddenWords}
-				class="slider"
-			/>
-			<label for="hide-slider">Hide {numberToHide} words</label>
-		</div>
-	</div>
 
-	<div class="button-container">
-		<button onclick={() => goto('/')}>Back</button>
-		<button onclick={() => (show = !show)}>
-			{show ? 'Blank hidden words' : 'Show hidden words'}
-		</button>
-		<button onclick={() => (showFirstLetterOnly = !showFirstLetterOnly)}>
-			{showFirstLetterOnly ? 'Hide all letters' : 'Show first letters'}
-		</button>
-		<button 
-			onclick={toggleSpeechRecognition}
-			class={isListening ? 'listening' : ''}
-		>
-			{isListening ? 'Stop Voice Input' : 'Start Voice Input'}
-		</button>
+		<div class="verse-panel">
+			{#if show}
+				<p class="verse-text">{words.join(' ')}</p>
+			{:else}
+				<p class="verse-text">
+					{@html words.map((word, index) => getDisplayWord(word, index)).join(' ')}
+				</p>
+			{/if}
+
+			<div class="input-overlay">
+				<textarea bind:value={guessText} spellcheck="false"></textarea>
+			</div>
+		</div>
+
+		<div class="action-buttons">
+			<button class="btn secondary" onclick={() => goto('/')}> Back to Home </button>
+			<button class="btn primary" onclick={() => (show = !show)}>
+				{show ? 'Hide Words' : 'Show All Words'}
+			</button>
+		</div>
 	</div>
 </div>
 
 <style>
-	.memory-page {
-		padding-top: 7rem;
+	.app-container {
 		min-height: 100vh;
-		background: linear-gradient(to bottom right, #f8f9ff, #e6f0ff);
+		background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+		padding: 2rem 1rem;
+		margin-top: 4rem;
 	}
 
-	.verse-container {
-		position: relative;
-		max-width: 90%;
-		margin: 2rem auto;
+	.content-wrapper {
+		max-width: 1000px;
+		margin: 0 auto;
 		padding: 2rem;
-		background: white;
-		border-radius: 10px;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	}
 
-	.input-container {
+	.control-panel {
+		background: white;
+		border-radius: 16px;
+		padding: 1.5rem;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+		margin-bottom: 2rem;
+	}
+
+	.switch-group {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.slider-group {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.slider-label {
+		color: #4a5568;
+		font-size: 0.9rem;
+		font-weight: 500;
+	}
+
+	.slider {
+		width: 100%;
+		height: 6px;
+		background: #e2e8f0;
+		border-radius: 3px;
+		outline: none;
+		accent-color: #2c5282;
+	}
+
+	.verse-panel {
+		position: relative;
+		background: white;
+		border-radius: 16px;
+		padding: 2rem;
+		margin: 2rem 0;
+		min-height: 300px;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+	}
+
+	.verse-text {
+		font-size: 1.25rem;
+		line-height: 1.8;
+		color: #4a5568;
+		margin: 0;
+		white-space: pre-wrap;
+		word-spacing: 0.25rem;
+	}
+
+	.input-overlay {
 		position: absolute;
 		top: 0;
 		left: 0;
@@ -182,88 +241,74 @@
 		z-index: 9;
 	}
 
-	.input-container textarea {
-		width: 99.99%;
-		height: 99.99%;
+	.input-overlay textarea {
+		width: 100%;
+		height: 100%;
+		padding: 2rem;
 		background: transparent;
 		border: none;
-		outline-color: #2c5282;
-		text-align: start;
-		font-size: 1 rem;
+		font-size: 1px;
 		color: transparent;
-		border-radius: 10px;
+		resize: none;
+		border-radius: 16px;
 	}
 
-	.button-container {
-		max-width: 800px;
-		margin: 2rem auto;
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		gap: 1rem;
+	.input-overlay textarea:focus {
+		outline: 2px solid #2c5282;
 	}
 
-	.slider-container {
-		max-width: 800px;
-		margin: 2rem auto;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		color: #5a5a5a;
-		position: relative;
-		z-index: 10;
-	}
-
-	.slider {
-		width: 80%;
-		margin: 1rem 0;
-		accent-color: #2c5282;
-	}
-
-	p {
-		font-size: 1.4rem;
-		line-height: 1.8;
-		margin: 2rem 0;
-		font-family: system-ui, -apple-system, sans-serif;
-		white-space: pre-wrap;
-		word-spacing: 0.5rem;
-		color: #606060;
-	}
-
-	button {
-		background-color: #2c5282;
-		border: none;
-		color: white;
+	.btn {
 		padding: 0.75rem 1.5rem;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 1rem;
-		cursor: pointer;
+		border: none;
 		border-radius: 8px;
-		transition: all 0.3s ease;
-		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		font-size: 1rem;
+		font-weight: 500;
+		cursor: pointer;
+		transition: all 0.2s;
 	}
 
-	button:hover {
-		background-color: #3182ce;
-		transform: translateY(-1px);
+	.btn:hover {
+		transform: translateY(-2px);
 	}
 
-	button.listening {
-		background-color: #e53e3e;
-		animation: pulse 2s infinite;
+	.btn.primary {
+		background: #2c5282;
+		color: white;
+		box-shadow: 0 4px 12px rgba(44, 82, 130, 0.2);
 	}
 
-	@keyframes pulse {
-		0% {
-			box-shadow: 0 0 0 0 rgba(229, 62, 62, 0.4);
+	.btn.primary:hover {
+		background: #2b6cb0;
+	}
+
+	.btn.secondary {
+		background: #f1f5f9;
+		color: #4a5568;
+	}
+
+	.btn.secondary:hover {
+		background: #e2e8f0;
+	}
+
+	@media (max-width: 768px) {
+		.content-wrapper {
+			padding: 1rem;
 		}
-		70% {
-			box-shadow: 0 0 0 10px rgba(229, 62, 62, 0);
+
+		.switch-group {
+			flex-direction: column;
 		}
-		100% {
-			box-shadow: 0 0 0 0 rgba(229, 62, 62, 0);
+
+		.verse-text {
+			font-size: 1.1rem;
+		}
+
+		.action-buttons {
+			flex-direction: column;
+		}
+
+		.btn {
+			width: 100%;
 		}
 	}
 </style>
