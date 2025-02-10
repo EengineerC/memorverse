@@ -5,9 +5,7 @@
 <header>
 	<div class="container">
 		<h1 onclick={() => goto('/')}>MemorVerse</h1>
-		<!-- <nav>
-			<a href="/memorize">Memorize</a>
-		</nav> -->
+		<!-- If I add more fetures I'll add a nav but it doesnt make sense right now -->
 	</div>
 </header>
 
@@ -43,24 +41,6 @@
 		opacity: 0.8;
 	}
 
-	/* nav {
-		display: flex;
-		gap: 1.5rem;
-	}
-
-	nav a {
-		color: white;
-		text-decoration: none;
-		font-size: 1.1rem;
-		font-weight: 500;
-		transition: color 0.3s ease-in-out;
-	}
-
-	nav a:hover {
-		color: #90cdf4; 
-	} */
-
-	/* Responsive Design */
 	@media (max-width: 768px) {
 		.container {
 			flex-direction: column;
@@ -68,10 +48,5 @@
 			text-align: center;
 			gap: 1rem;
 		}
-
-		/* nav {
-			flex-direction: column;
-			gap: 0.75rem;
-		} */
 	}
 </style>
