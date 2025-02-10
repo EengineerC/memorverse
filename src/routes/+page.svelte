@@ -46,6 +46,10 @@
 		background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 		padding: 2rem 1rem;
 		margin-top: 4rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.hero-section {

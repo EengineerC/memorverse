@@ -12,17 +12,20 @@
 	let isListening = $state(false);
 	let recognition: SpeechRecognition | null = null;
 	let lastCorrectIndex = 0;
-	let text = inputText.text;
+	let text = inputText.text.replace(/\n/g, ' '); // gotta figure out a prettier way to fix the newline problem but i havent
 	const words = text.split(' ');
 	const numberOfWords = words.length;
 	let initialized = false;
+	let speaking = false
 
 	$effect(() => {
 		for (let i = 0; i < text.length; i++) {
 			if (!/^[a-zA-Z]+$/.test(text[i])) {
 				//this is to deal with punctuation when speaking.
 				// it automatically fills forward punctuation
-				guessText = guessText.slice(0, i) + text[i] + guessText.slice(i + 1);
+				if(speaking) {
+					guessText = guessText.slice(0, i) + text[i] + guessText.slice(i + 1);
+				}
 				//marks whatever the last non-letter ther is to the last correct index
 				lastCorrectIndex = i;
 			}
@@ -65,6 +68,7 @@
 	});
 
 	function toggleSpeechRecognition() {
+		speaking= !speaking
 		if (!initialized) {
 			initializeSpeechRecognition();
 		}
