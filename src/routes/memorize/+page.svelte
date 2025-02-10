@@ -283,7 +283,7 @@
 	}
 
 	.btn.secondary {
-		background: #f0f2f4;
+		background: #f5f7f9;
 		color: #4a5568;
 		box-shadow: 0 1.5px 12px rgba(44, 82, 130, 0.2);
 	}
