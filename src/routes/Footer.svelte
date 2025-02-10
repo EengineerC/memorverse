@@ -1,7 +1,7 @@
 <footer class="footer">
     <div class="footer-content">
       <div class="social-links">
-        <a href="www.linkedin.com/in/bryant-l-clark" target="_blank" class="social-link">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/bryant-l-clark" target="_blank" class="social-link">LinkedIn</a>
         <a href="https://github.com/eengineerc" target="_blank" class="social-link">GitHub</a>
       </div>
       <a href="https://www.biblegateway.com/" target="_blank" class="bible-link">Find More Bible Verses</a>

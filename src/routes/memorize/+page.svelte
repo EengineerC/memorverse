@@ -218,7 +218,7 @@
 		background: white;
 		border-radius: 16px;
 		padding: 2rem;
-		margin: 2rem 0;
+		margin: 1.7rem 0;
 		min-height: 300px;
 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 	}
@@ -259,12 +259,14 @@
 
 	.btn {
 		padding: 0.75rem 1.5rem;
+		margin: 0.3rem;
 		border: none;
 		border-radius: 8px;
 		font-size: 1rem;
 		font-weight: 500;
 		cursor: pointer;
 		transition: all 0.2s;
+		box-shadow: #4a5568;
 	}
 
 	.btn:hover {

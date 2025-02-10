@@ -71,7 +71,8 @@
 	.guide-container {
 		background: white;
 		border-radius: 16px;
-		margin-bottom: 1rem;
+		margin-bottom: 2rem;
+        margin-top: 1rem;
 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 		overflow: hidden;
 	}

@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import Description from './Description.svelte';
 	import { inputText } from './state.svelte';
 </script>
 
@@ -10,22 +9,34 @@
 		<p class="subtitle">Memorize Scripture Through Interactive Practice</p>
 	</div>
 
-	<div class="content-wrapper">
-		<div class="input-panel">
-			<p class="panel-description">
-				MemorVerse is a Bible memory app that helps you memorize scripture in an interactive way.
-				Test your memory by filling in missing words from Bible verses or using speech recognition
-				to recall verses. Customize your experience with features like showing the first letter of
-				each word or adjusting how many words are hidden at once. Enter your bible verse below and
-				start memorizing!
-			</p>
+	<div class="description-panel">
+		<p class="panel-description">
+			MemorVerse is a Bible memory app that helps you memorize scripture in an interactive way. Test
+			your memory by filling in missing words of Bible verses by typing or by using speech
+			recognition. Customize your experience with features like showing the first letter of each
+			word or adjusting how many words are hidden at once. Enter your bible verse below and start
+			memorizing!
+		</p>
 
-			<textarea bind:value={inputText.text} placeholder="Enter your Bible verse here..."></textarea>
-			<button class="btn primary" onclick={() => goto('/memorize')}> Start Memorizing </button>
+		<div class="features">
+			<div class="feature">
+				<span class="icon">🎯</span>
+				<h3>Interactive Practice</h3>
+				<p>Test your memory with customizable word hiding</p>
+			</div>
+			<div class="feature">
+				<span class="icon">🎤</span>
+				<h3>Voice Recognition</h3>
+				<p>Practice verses hands-free using speech</p>
+			</div>
+			<div class="feature">
+				<span class="icon">⚡</span>
+				<h3>Customizable</h3>
+				<p>Adjust difficulty to match your learning style</p>
+			</div>
 		</div>
-		<div class="description-panel">
-			<Description />
-		</div>
+		<textarea bind:value={inputText.text} placeholder="Enter your Bible verse here..."></textarea>
+		<button class="btn primary" onclick={() => goto('/memorize')}> Start Memorizing </button>
 	</div>
 </main>
 
@@ -43,6 +54,62 @@
 		padding-top: 2rem;
 	}
 
+	.description-panel {
+		width: 100%;
+		background: white;
+		border-radius: 16px;
+		padding: 2.5rem;
+		margin: 0 auto 2rem;
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+		max-width: 1000px;
+	}
+
+	p {
+		color: #4a5568;
+		line-height: 1.7;
+		font-size: 1.1rem;
+		margin-bottom: 2rem;
+	}
+
+	.features {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 2rem;
+		margin-top: 3rem;
+	}
+
+	.feature {
+		text-align: center;
+		padding: 1.5rem;
+		background: #f8fafc;
+		border-radius: 12px;
+		transition: transform 0.2s;
+		border: 1px solid #e2e8f0;
+	}
+
+	.feature:hover {
+		transform: translateY(-5px);
+		box-shadow: 0 4px 12px rgba(44, 82, 130, 0.1);
+	}
+
+	.icon {
+		font-size: 2rem;
+		margin-bottom: 1rem;
+		display: inline-block;
+	}
+
+	h3 {
+		color: #2c5282;
+		font-size: 1.25rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.feature p {
+		color: #4a5568;
+		font-size: 1rem;
+		margin-bottom: 0;
+	}
+
 	h1 {
 		font-size: 3rem;
 		color: #2c5282;
@@ -55,34 +122,6 @@
 		color: #4a5568;
 	}
 
-	.content-wrapper {
-		display: flex;
-		justify-content: space-between;
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 2rem;
-		gap: 2rem;
-	}
-
-	.description-panel {
-		flex: 1;
-		background: white;
-		border-radius: 16px;
-		padding: 2.5rem;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-	}
-
-	.input-panel {
-		flex: 1;
-		background: white;
-		border-radius: 16px;
-		padding: 2.5rem;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-		display: flex;
-		flex-direction: column;
-		gap: 1.5rem;
-	}
-
 	.panel-description {
 		font-size: 1.2rem;
 		color: #4a5568;
@@ -90,16 +129,19 @@
 	}
 
 	textarea {
+		height: 300px;
 		width: 100%;
-		height: 55.1%;
-		padding: 1.5rem;
+		padding: 2rem;
 		font-size: 1.1rem;
 		line-height: 1.6;
 		border: 2px solid #e2e8f0;
 		border-radius: 12px;
 		resize: vertical;
 		transition: all 0.2s;
+		margin-top: 2rem;
+		color: #4a5568;
 	}
+
 	.btn {
 		padding: 0.75rem 1.5rem;
 		border: none;
@@ -108,6 +150,7 @@
 		font-weight: 500;
 		cursor: pointer;
 		transition: all 0.2s;
+		margin-top: 1.7rem;
 	}
 
 	.btn:hover {
@@ -125,17 +168,14 @@
 	}
 
 	@media (max-width: 768px) {
-		.content-wrapper {
-			flex-direction: column;
-			padding: 1rem;
-		}
-
-		h1 {
-			font-size: 2.5rem;
-		}
-
-		.input-panel {
+		.description-panel {
 			padding: 1.5rem;
+			margin: 1rem;
+		}
+
+		.features {
+			grid-template-columns: 1fr;
+			gap: 1rem;
 		}
 	}
 </style>

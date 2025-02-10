@@ -37,7 +37,6 @@
 	.s--slider {
 		display: flex;
 		align-items: center;
-		padding: px;
 	}
 
 	.s--slider button {
