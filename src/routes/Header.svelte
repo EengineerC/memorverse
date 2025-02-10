@@ -5,9 +5,9 @@
 <header>
 	<div class="container">
 		<h1 onclick={() => goto('/')}>MemorVerse</h1>
-		<nav>
-			<!-- <a href="/memorize">Memorize</a> -->
-		</nav>
+		<!-- <nav>
+			<a href="/memorize">Memorize</a>
+		</nav> -->
 	</div>
 </header>
 
@@ -16,7 +16,7 @@
 		background-color: #2c5282; 
 		color: white;
 		width: 100%;
-		padding: 1rem 2rem;
+		padding: 2rem 3rem;
 		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 		position: fixed;
 		top: 0;
@@ -43,7 +43,7 @@
 		opacity: 0.8;
 	}
 
-	nav {
+	/* nav {
 		display: flex;
 		gap: 1.5rem;
 	}
@@ -58,7 +58,7 @@
 
 	nav a:hover {
 		color: #90cdf4; 
-	}
+	} */
 
 	/* Responsive Design */
 	@media (max-width: 768px) {
@@ -69,9 +69,9 @@
 			gap: 1rem;
 		}
 
-		nav {
+		/* nav {
 			flex-direction: column;
 			gap: 0.75rem;
-		}
+		} */
 	}
 </style>
