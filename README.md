@@ -1,11 +1,12 @@
 
 # Memorverse
 
-Welcome to **Memorverse** — a simple and effective app designed to help you memorize memory verses (or any text). The app hides words as many words as you choose until you can get the whole thing, and lets you check if you know the verse by typing it in!
+Welcome to **Memorverse** — a simple and effective app designed to help you memorize memory verses (or any text). The app hides as many words as you choose until you can get the whole thing, and lets you check if you know the verse by typing it in or using voice input!
 
 ## Features:
 - Enter a memory verse to help you memorize.
-- Type in the verse and check if you know it.
+- Type in the verse or use voice input to check if you know it.
+- Uses the Web Speech API for voice recognition.
 - Use spaced repetition and interactive techniques to enhance your recall.
 - Simple, intuitive interface for easy use.
 
@@ -56,12 +57,13 @@ Once the app is running:
 
 - Enter a memory verse you'd like to memorize.
 - Add more and more blanked words until you can recall the whole thing.
-- You can also type in the verse to check if you know it!
+- You can also type in the verse or use voice input to check if you know it!
 
 ## Technologies Used
 
 - **SvelteKit** for the front-end framework
 - **Node.js** for the development environment
+- **Web Speech API** for voice input functionality
 - Spaced repetition techniques (if implemented)
 
 ## Troubleshooting
@@ -71,3 +73,4 @@ If you encounter any issues or errors while using the app, feel free to open an 
 ## License
 
 None
+
