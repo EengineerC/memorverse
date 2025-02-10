@@ -266,7 +266,6 @@
 		font-weight: 500;
 		cursor: pointer;
 		transition: all 0.2s;
-		box-shadow: #4a5568;
 	}
 
 	.btn:hover {
@@ -284,8 +283,9 @@
 	}
 
 	.btn.secondary {
-		background: #f1f5f9;
+		background: #f0f2f4;
 		color: #4a5568;
+		box-shadow: 0 1.5px 12px rgba(44, 82, 130, 0.2);
 	}
 
 	.btn.secondary:hover {
