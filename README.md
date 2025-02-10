@@ -57,18 +57,17 @@ Once the app is running:
 
 - Enter a memory verse you'd like to memorize.
 - Add more and more blanked words until you can recall the whole thing.
-- You can also type in the verse or use voice input to check if you know it!
+- Type the verse in or speak it to test your knowledge
 
 ## Technologies Used
 
 - **SvelteKit** for the front-end framework
 - **Node.js** for the development environment
 - **Web Speech API** for voice input functionality
-- Spaced repetition techniques (if implemented)
 
 ## Troubleshooting
 
-If you encounter any issues or errors while using the app, feel free to open an issue in the repository, and we'll assist you as soon as possible!
+If you encounter any issues or errors while using the app, feel free to open an issue in the repository, and I'll fix it as soon as possible!
 
 ## License
 
