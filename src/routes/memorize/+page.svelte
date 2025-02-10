@@ -110,6 +110,12 @@
 			})
 			.join('');
 	}
+
+	function restartGame() {
+	guessText = '';
+	lastCorrectIndex = 0;
+}
+
 </script>
 
 <div class="app-container">
@@ -148,6 +154,12 @@
 					{@html words.map((word, index) => getDisplayWord(word, index)).join(' ')}
 				</p>
 			{/if}
+
+			<button class="restart-button" onclick={restartGame} title="Restart">
+				<span class="restart-text">Restart</span>
+				<svg fill="#4a5568" height="30" viewBox="0 0 512 512" width="30" ><path d="m370.72 133.28c-31.262-29.272-71.832-45.318-114.872-45.28-77.458.068-144.328 53.178-162.791 126.85-1.344 5.363-6.122 9.15-11.651 9.15h-57.303c-7.498 0-13.194-6.807-11.807-14.176 21.637-114.9 122.517-201.824 243.704-201.824 66.448 0 126.791 26.136 171.315 68.685l35.715-35.715c15.119-15.119 40.97-4.411 40.97 16.971v134.059c0 13.255-10.745 24-24 24h-134.059c-21.382 0-32.09-25.851-16.971-40.971zm-338.72 162.72h134.059c21.382 0 32.09 25.851 16.971 40.971l-41.75 41.75c31.262 29.273 71.835 45.319 114.876 45.28 77.418-.07 144.315-53.144 162.787-126.849 1.344-5.363 6.122-9.15 11.651-9.15h57.304c7.498 0 13.194 6.807 11.807 14.176-21.638 114.898-122.518 201.822-243.705 201.822-66.448 0-126.791-26.136-171.315-68.685l-35.715 35.715c-15.119 15.119-40.97 4.411-40.97-16.971v-134.059c0-13.255 10.745-24 24-24z" stroke="#1c274c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></svg>
+			</button>
+			
 
 			<div class="input-overlay">
 				<textarea bind:value={guessText} spellcheck="false"></textarea>
@@ -292,6 +304,40 @@
 		background: #e2e8f0;
 	}
 
+	.restart-button {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	z-index: 10;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 1.5rem;
+	transition: all 0.3s;
+	display: flex;
+	align-items: center;
+	color: #4a5568;
+	border-radius: 50%;
+	padding: 8px;
+
+}
+
+.restart-button:hover {
+	/* background: rgba(44, 82, 130, 0.1); */
+	border-radius: 50%;
+}
+
+.restart-text {
+	font-size: 0.9rem;
+	margin-right: 8px;
+	opacity: 0;
+}
+
+.restart-button:hover .restart-text {
+	opacity: 1;
+}
+
+
 	@media (max-width: 768px) {
 		.content-wrapper {
 			padding: 1rem;
@@ -311,6 +357,7 @@
 
 		.btn {
 			width: 100%;
+			margin: 1 rem;
 		}
 	}
 </style>

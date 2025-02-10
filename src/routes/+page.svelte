@@ -59,9 +59,10 @@
 		background: white;
 		border-radius: 16px;
 		padding: 2.5rem;
-		margin: 0 auto 2rem;
+		margin: 2 auto 2rem;
 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 		max-width: 1000px;
+
 	}
 
 	p {
@@ -165,17 +166,5 @@
 
 	.btn.primary:hover {
 		background: #2b6cb0;
-	}
-
-	@media (max-width: 768px) {
-		.description-panel {
-			padding: 1.5rem;
-			margin: 1rem;
-		}
-
-		.features {
-			grid-template-columns: 1fr;
-			gap: 1rem;
-		}
 	}
 </style>

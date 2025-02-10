@@ -192,7 +192,7 @@
 		left: 0;
 	}
 
-	@media (max-width: 768px) {
+	/* @media (max-width: 768px) {
 		.guide-container {
 			margin: 1rem;
 		}
@@ -208,5 +208,5 @@
 		.step-number {
 			margin-bottom: 0.5rem;
 		}
-	}
+	} */
 </style>
